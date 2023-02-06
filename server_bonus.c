@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:50:29 by abelayad          #+#    #+#             */
-/*   Updated: 2023/02/06 16:02:01 by abelayad         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:14:42 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 pid_t	g_pid;
 
@@ -46,6 +46,7 @@ void	ft_char_handler(char c, t_list **strptr)
 	}
 	else
 	{
+		kill(g_pid, SIGUSR2);
 		head = *strptr;
 		while (*strptr && *(char *)(*strptr)->content)
 		{

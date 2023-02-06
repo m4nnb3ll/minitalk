@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:03:57 by abelayad          #+#    #+#             */
-/*   Updated: 2023/02/06 16:09:46 by abelayad         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:14:35 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 void	ft_char_sender(char c, int pid)
 {
@@ -62,13 +62,29 @@ int	ft_valid_pid(char *pidstr)
 	return (1);
 }
 
+void	ft_handler(int signo)
+{
+	if (signo == SIGUSR2)
+	{
+		ft_putstr_fd(WHITE, 1);
+		ft_putstr_fd("Message from the server: ", 1);
+		ft_putstr_fd(GREEN, 1);
+		ft_putstr_fd("The string got fully received!\n", 1);
+		ft_putstr_fd(COLOR_RESET, 1);
+	}
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc != 3)
 		return (1);
 	if (!ft_valid_pid(argv[1]))
 		return (1);
+	signal(SIGUSR2, ft_handler);
 	ft_sender(argv[2], ft_atoi(argv[1]));
+	while (1)
+		pause();
 }
 
 /*"Test `~(*123!@#$%^&*(_+-=][}{';:.></|\\?)"*/

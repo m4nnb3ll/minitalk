@@ -1,25 +1,28 @@
-NAME = server client
+NAME = client server
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRV_SRCS = server.c
-CLT_SRCS = client.c
-
 all: $(NAME)
 
-server: $(SRV_SRCS)
-		$(CC) $(CFLAGS) $(SRV_SRCS) libft/libft.a -o server
+$(NAME): client.c server.c
+	@make -C libft/ bonus
+	$(CC) $(CFLAGS) client.c -L./libft/ -lft -o client
+	$(CC) $(CFLAGS) server.c -L./libft/ -lft -o server
 
-client: $(CLT_SRCS)
-		$(CC) $(CFLAGS) $(CLT_SRCS) libft/libft.a -o client
+bonus: client_bonus.c server_bonus.c
+	@make -C libft/ bonus	
+	$(CC) $(CFLAGS) client_bonus.c -L./libft/ -lft -o client
+	$(CC) $(CFLAGS) server_bonus.c -L./libft/ -lft -o server
+	@touch bonus
 
 clean:
-	rm -f $(SRV_OBJS) $(CLT_OBJS)
+	rm -f client.o server.o client_bonus.o server_bonus.o
 
 fclean: clean
 	rm -f $(NAME)
+	@rm -f bonus
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

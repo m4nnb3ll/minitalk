@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_double_ptr_free.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 21:26:13 by abelayad          #+#    #+#             */
-/*   Updated: 2023/02/06 16:10:15 by abelayad         ###   ########.fr       */
+/*   Created: 2023/02/01 22:49:41 by abelayad          #+#    #+#             */
+/*   Updated: 2023/02/01 22:53:39 by abelayad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <signal.h>
-# include <unistd.h>
+void	ft_double_ptr_free(void **tofree)
+{
+	size_t	i;
 
-# define WAIT_TIME 100
-
-# define GREEN "\033[1;32m"
-# define YELLOW "\033[1;33m"
-# define WHITE "\033[1;37m"
-# define COLOR_RESET "\033[0m"
-
-typedef struct s_char_struct {
-	char	c;
-	int		i;
-}	t_char_struct;
-
-#endif
+	i = 0;
+	while (tofree[i])
+		free(tofree[i++]);
+	free(tofree);
+}
