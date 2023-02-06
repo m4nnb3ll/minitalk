@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 	if (!ft_valid_pid(argv[1]))
 		return (1);
 	ft_sender(argv[2], ft_atoi(argv[1]));
+	return (0);
 }
 
 /*"Test `~(*123!@#$%^&*(_+-=][}{';:.></|\\?)"*/
